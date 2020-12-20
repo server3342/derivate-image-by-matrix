@@ -19,7 +19,7 @@ def get_difference(path, matrix):
     diff_img = []
     for hf in range(kernel_h):
         for wf in range(kernel_w):
-            diff = blur_img[hf:img_h - kernel_h + 1:kernel_h, wf:img_w - kernel_w + 1:kernel_w]
+            diff = blur_img[hf:img_h - kernel_h + hf + 1:1, wf:img_w - kernel_w + wf + 1:1]
             diff_img.append(diff)
             cv.imshow('kernel', diff)
             cv.waitKey(0)
@@ -39,13 +39,16 @@ if __name__ == '__main__':
         [0, 0, 0]
     ])
     dx = get_difference('C:/task.png', matrix)
+    cv.imwrite('D:/dx.png', np.round(minmax(dx) * 255))
     matrix = np.asarray([
         [0, 0, 0],
         [0, -1, 0],
         [0, 1, 0]
     ])
     dy = get_difference('C:/task.png', matrix)
+    cv.imwrite('D:/dy.png', np.round(minmax(dy) * 255))
 
     d = np.sqrt(np.square(dx) + np.square(dy))
+    cv.imwrite('D:/d.png', np.round(minmax(d) * 255))
     cv.imshow('d', minmax(d))
     cv.waitKey(0)
