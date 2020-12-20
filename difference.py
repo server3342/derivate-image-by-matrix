@@ -2,6 +2,12 @@ import cv2 as cv
 import numpy as np
 
 
+def minmax(array):
+    array = array - np.min(array)
+    array = array / np.max(array)
+    return array
+
+
 def get_difference(path, matrix):
     kernel_h, kernel_w = np.shape(matrix)
     img = cv.imread(path)
@@ -21,9 +27,7 @@ def get_difference(path, matrix):
     print(matrix, np.shape(diff_img))
     diff_img = np.multiply(diff_img, matrix)
     diff_img = np.sum(diff_img, 0)
-    diff_img = diff_img - np.min(diff_img)
-    diff_img = diff_img / np.max(diff_img)
-    cv.imshow('diff', diff_img)
+    cv.imshow('diff', minmax(diff_img))
     cv.waitKey(0)
     return diff_img
 
@@ -43,7 +47,5 @@ if __name__ == '__main__':
     dy = get_difference('C:/task.png', matrix)
 
     d = np.sqrt(np.square(dx) + np.square(dy))
-    d = d - np.min(d)
-    d = d / np.max(d)
-    cv.imshow('d', d)
+    cv.imshow('d', minmax(d))
     cv.waitKey(0)
