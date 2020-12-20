@@ -1,1 +1,1 @@
-# derivate-image-by-matrix
+# difference-image-matrix
