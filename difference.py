@@ -3,8 +3,8 @@ import numpy as np
 
 
 def minmax(array):
-    array = array - np.min(array)
-    array = array / np.max(array)
+    array = array - np.min(array) if np.min(array) < 0 else array
+    array = array / np.max(array) if np.max(array) > 1 else array
     return array
 
 
